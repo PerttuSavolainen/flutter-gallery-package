@@ -14,11 +14,13 @@ class GalleryImageViewWrapper extends StatefulWidget {
   final List<GalleryItemModel> galleryItems;
   final Axis scrollDirection;
   final String? titleGallery;
+  final Function(PageController)? galleryAppBarActionCallback;
 
   GalleryImageViewWrapper({
     Key? key,
     this.loadingBuilder,
     this.titleGallery,
+    this.galleryAppBarActionCallback,
     this.backgroundDecoration,
     this.initialIndex,
     required this.galleryItems,
@@ -40,6 +42,19 @@ class _GalleryImageViewWrapperState extends State<GalleryImageViewWrapper> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.titleGallery ?? "Gallery"),
+        actions: widget.galleryAppBarActionCallback != null
+            ? <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.info,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+                  onPressed: () async {
+                    widget.galleryAppBarActionCallback!(widget.pageController);
+                  },
+                )
+              ]
+            : [],
       ),
       body: Container(
         decoration: widget.backgroundDecoration,

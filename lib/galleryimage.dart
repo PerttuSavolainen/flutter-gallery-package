@@ -10,12 +10,14 @@ import './util.dart';
 class GalleryImage extends StatefulWidget {
   final List<String> imageUrls;
   final String? titleGallery;
+  final Function(PageController)? galleryAppBarActionCallback;
   final int numOfShowImages;
 
   const GalleryImage(
       {Key? key,
       required this.imageUrls,
       this.titleGallery,
+      this.galleryAppBarActionCallback,
       this.numOfShowImages = 3})
       : assert(numOfShowImages <= imageUrls.length),
         super(key: key);
@@ -98,6 +100,7 @@ class _GalleryImageState extends State<GalleryImage> {
       MaterialPageRoute(
         builder: (context) => GalleryImageViewWrapper(
           titleGallery: widget.titleGallery,
+          galleryAppBarActionCallback: widget.galleryAppBarActionCallback,
           galleryItems: galleryItems,
           backgroundDecoration: const BoxDecoration(
             color: Colors.black,
